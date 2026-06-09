@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, math
 
 # INTERFACE ----
 pygame.init()
@@ -11,12 +11,15 @@ pygame.display.set_caption("Aventura Idle!")
 
 fonte = pygame.font.Font(None, 30)
 
+clock = pygame.time.Clock()
+
+
 # JOGADOR ----
 cor = (255, 255, 255)
 raio = 20
 
 vida = 10
-velocidade = 0.1
+velocidade = 5
 dano = 1
 
 moedas = 0
@@ -33,7 +36,7 @@ corini = (255, 0, 0)
 raioini = 20
 
 vidaini = 1
-velocidadeini = 0.1
+velocidadeini = 5
 danoini = 1
 
 xini = random.randint(0, largura)
@@ -44,6 +47,10 @@ velYini = random.uniform(-velocidadeini, velocidadeini)
 # ------------
 
 rodando = True
+encostoux = False
+encostouy = False
+iniencostoux = False
+iniencostouy = False
 
 while rodando:
     janela.fill((0, 0, 0))
@@ -68,6 +75,7 @@ while rodando:
     janela.blit(textoVidaIni, retangulo)
 
     pygame.display.update()
+    clock.tick(60)
 
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -76,20 +84,33 @@ while rodando:
     x += velX
     y += velY
 
-    if x > (largura - raio) or x < raio:
-        velX = -velX
-
-    if y > (altura - raio) or y < raio:
-        velY = -velY
-
     xini += velXini
     yini += velYini
 
-    if xini > (largura - raioini) or xini < raioini:
-        velXini = -velXini
+    posicao = [x, y]
+    posicaoini = [xini, yini]
 
-    if yini > (altura - raioini) or yini < raioini:
+    distancia = math.dist(posicao, posicaoini)
+
+    if (x > (largura - raio) or x < raio or distancia < (raioini + raio)) and encostoux == False:
+        velX = -velX
+        encostoux = True
+    elif (y > (altura - raio) or y < raio or distancia < (raioini + raio)) and encostouy == False:
+        velY = -velY
+        encostouy = True
+
+    if (xini > (largura - raioini) or xini < raioini or distancia < (raioini + raio)) and iniencostoux == False:
+        velXini = -velXini
+        iniencostoux = True
+    elif (yini > (altura - raioini) or yini < raioini or distancia < (raioini + raio)) and iniencostouy == False:
         velYini = -velYini
+        iniencostouy = True
+
+    if distancia > (raioini + raio):
+        encostoux = False
+        encostouy = False
+        iniencostoux = False
+        iniencostouy = False
     
 
 pygame.quit()
