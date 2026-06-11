@@ -4,9 +4,9 @@ from colorama import Fore, Back, Style, init
 init(autoreset=True)
 
 # PEGA A LARGURA DO TERMINAL E SUBTRAI 2 (O PRINT DO MENU BUGA USANDO A LARGURA COMPLETA)
-largura_terminal = (shutil.get_terminal_size().columns - 2) 
+larguraTerminal = (shutil.get_terminal_size().columns - 2) 
 
-menu = '''
+menu = Fore.YELLOW + '''
 ________                                             _________            .___    ._.
 \______ \  __ __  ____    ____   ____  ____   ____   \_   ___ \  ____   __| _/____| |
  |    |  \|  |  \/    \  / ___\_/ __ \/  _ \ /    \  /    \  \/ /  _ \ / __ |/ __ \ |
@@ -24,14 +24,9 @@ ________                                             _________            .___  
  / __| __ _(_)_ _ 
  \__ \/ _` | | '_|
  |___/\__,_|_|_|  
-
- 
- por ~
- ig: @jotaltda
- git: jotaaltda
                   
 '''
 
 # DESENHA O MENU, CENTRALIZANDO CADA LINHA INDIVIDUALMENTE DE ACORDO COM A LARGURA DO TERMINAL
 for linha in menu.splitlines():
-    print(Fore.YELLOW + linha.center(largura_terminal))
+    print(linha.center(larguraTerminal))
