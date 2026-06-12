@@ -18,6 +18,7 @@ ________                                             _________            .___  
  |    `   \  |  /   |  \/ /_/  >  ___(  <_> )   |  \ \     \___(  <_> ) /_/ \  ___/\|
 /_______  /____/|___|  /\___  / \___  >____/|___|  /  \______  /\____/\____ |\___  >_
         \/           \//_____/      \/           \/          \/            \/    \/\/
+
 '''      
 
 opcao_iniciar = '''
@@ -91,7 +92,7 @@ while True:
 
     desenhar_menu()
     
-    tecla = keyboard.read_key()
+    tecla = keyboard.read_key().lower()
 
     if keyboard.is_pressed('down'):
         verificador_de_opcao += 1
@@ -111,7 +112,7 @@ while True:
     elif verificador_de_opcao == 2:
         opcao_escolhida = 'changelog'
 
-    if tecla == 'enter':
+    if tecla == 'z':
         if opcao_escolhida == 'iniciar' or opcao_escolhida == '':
             ...
         
