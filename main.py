@@ -4,7 +4,11 @@ from colorama import Fore, Back, Style, init
 init(autoreset=True)
 
 # VARIÁVEIS GLOBAIS ====
+
 opcao_escolhida = '' 
+
+verificador_de_opcao = 0
+
 # ======================
 
 menu = '''
@@ -31,20 +35,24 @@ opcao_sair = '''
 '''
  
 creditos = '''
-por ~
-ig: @jotaltda
-git: jotaaltda
-                  
+
+Por ~
+Ig: @jotaltda
+Git: jotaaltda
+
+Versão: 0.1.0
 '''
 
-while True:
+opcao_changelog = '''
++-+-+-+-+-+-+-+-+-+
+|C|h|a|n|g|e|l|o|g|
++-+-+-+-+-+-+-+-+-+
+'''
 
-    os.system("cls")
+# FUNÇÔES ==============
 
-    # PEGA A LARGURA DO TERMINAL E SUBTRAI 2 (O PRINT DO MENU BUGA USANDO A LARGURA COMPLETA)
-    largura_terminal = (shutil.get_terminal_size().columns - 2)
-    
-    # DESENHA O MENU, CENTRALIZANDO CADA LINHA INDIVIDUALMENTE DE ACORDO COM A LARGURA DO TERMINAL
+# DESENHA O MENU, CENTRALIZANDO CADA LINHA INDIVIDUALMENTE DE ACORDO COM A LARGURA DO TERMINAL
+def desenhar_menu():
     for linha in menu.splitlines():
         print(Fore.YELLOW + linha.center(largura_terminal))
 
@@ -65,14 +73,50 @@ while True:
     for linha in creditos.splitlines():
         print(Fore.YELLOW + linha.center(largura_terminal))
 
-    if keyboard.is_pressed('down'):
-        opcao_escolhida = 'sair'
-    elif keyboard.is_pressed('up'):
-        opcao_escolhida = 'iniciar'
+    if opcao_escolhida == 'changelog':
+        for linha in opcao_changelog.splitlines():
+            print(Fore.GREEN + linha.center(largura_terminal))
+    else:
+        for linha in opcao_changelog.splitlines():
+            print(Fore.YELLOW + linha.center(largura_terminal))
 
-    if keyboard.is_pressed('enter'):
-        if opcao_escolhida == 'iniciar':
+# ======================        
+
+while True:
+
+    os.system("cls")
+
+    # PEGA A LARGURA DO TERMINAL E SUBTRAI 2 (O PRINT DO MENU BUGA USANDO A LARGURA COMPLETA)
+    largura_terminal = (shutil.get_terminal_size().columns - 2)
+
+    desenhar_menu()
+    
+    tecla = keyboard.read_key()
+
+    if keyboard.is_pressed('down'):
+        verificador_de_opcao += 1
+    elif keyboard.is_pressed('up'):
+        verificador_de_opcao -= 1
+
+    if verificador_de_opcao < 0:
+        verificador_de_opcao = 0
+
+    if verificador_de_opcao > 2:
+        verificador_de_opcao = 2
+
+    if verificador_de_opcao == 0:
+        opcao_escolhida = 'iniciar'
+    elif verificador_de_opcao == 1:
+        opcao_escolhida = 'sair'
+    elif verificador_de_opcao == 2:
+        opcao_escolhida = 'changelog'
+
+    if tecla == 'enter':
+        if opcao_escolhida == 'iniciar' or opcao_escolhida == '':
             ...
         
         if opcao_escolhida == 'sair':
             sys.exit(0)
+
+        if opcao_escolhida == 'changelog':
+            ...
