@@ -17,23 +17,23 @@ ________                                             _________            .___  
 '''      
 
 opcao_iniciar = '''
-  ___      _    _          
- |_ _|_ _ (_)__(_)__ _ _ _ 
-  | || ' \| / _| / _` | '_|
- |___|_||_|_\__|_\__,_|_|  
+ ___      _    _          
+|_ _|_ _ (_)__(_)__ _ _ _ 
+ | || ' \| / _| / _` | '_|
+|___|_||_|_\__|_\__,_|_|  
 '''
 
 opcao_sair = '''
-  ___       _     
- / __| __ _(_)_ _ 
- \__ \/ _` | | '_|
- |___/\__,_|_|_|  
+ ___       _     
+/ __| __ _(_)_ _ 
+\__ \/ _` | | '_|
+|___/\__,_|_|_|  
 '''
  
 creditos = '''
- por ~
- ig: @jotaltda
- git: jotaaltda
+por ~
+ig: @jotaltda
+git: jotaaltda
                   
 '''
 
@@ -43,11 +43,6 @@ while True:
 
     # PEGA A LARGURA DO TERMINAL E SUBTRAI 2 (O PRINT DO MENU BUGA USANDO A LARGURA COMPLETA)
     largura_terminal = (shutil.get_terminal_size().columns - 2)
-
-    if keyboard.is_pressed('down'):
-        opcao_escolhida = 'sair'
-    elif keyboard.is_pressed('up'):
-        opcao_escolhida = 'iniciar'
     
     # DESENHA O MENU, CENTRALIZANDO CADA LINHA INDIVIDUALMENTE DE ACORDO COM A LARGURA DO TERMINAL
     for linha in menu.splitlines():
@@ -69,6 +64,11 @@ while True:
 
     for linha in creditos.splitlines():
         print(Fore.YELLOW + linha.center(largura_terminal))
+
+    if keyboard.is_pressed('down'):
+        opcao_escolhida = 'sair'
+    elif keyboard.is_pressed('up'):
+        opcao_escolhida = 'iniciar'
 
     if keyboard.is_pressed('enter'):
         if opcao_escolhida == 'iniciar':
